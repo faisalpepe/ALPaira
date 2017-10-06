@@ -22,7 +22,7 @@ const config = {
   platform: whichPlatform,
   EMAIL_REGEX: /[^@]+@[^@]+\.[^@]+/,
   Headers: {
-    'User-Agent':'DESKTOP:MAC:10.10.2-YOSEMITE-x64(4.5.0)'
+    'User-Agent':'DESKTOPWIN\t3.6.0.32\tWINDOWS 5.0.2195-XP-x64'
   }
 };
 
