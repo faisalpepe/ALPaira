@@ -1,6 +1,5 @@
 const LineConnect = require('./connect');
-let line = require('./main.js');
-let LINE = new line();
+let LINE = require('./main.js');
 
 const auth = {
 	authToken: 'ElsGkF4Al30VdZiQwPD4.dHJZNecxo/xYaCWBafkl5a.d4aZWVn5Z0n2N4KoiRz7xgPF4ybPvesnSXXukQWOdQY='
