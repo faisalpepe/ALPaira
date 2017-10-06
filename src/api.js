@@ -148,9 +148,9 @@ class LineAPI {
     return result;
   }
 
-  async _sendMessage(message, txt ,seq = 0) {
+  _sendMessage(message, txt ,seq = 0) {
     message.text = txt;
-    return await this._client.sendMessage(0, message);
+    return this._client.sendMessage(0, message);
   }
 
   _kickMember(group,memid) {
@@ -239,8 +239,8 @@ class LineAPI {
     return await this._client.getGroup(groupId);
   }
 
-  _leaveGroup(gid) {
-    return this._client.leaveGroup(0,gid);
+  _leaveGroup(group) {
+    return this._client.leaveGroup(0,group);
   }
   
   async _reissueGroupTicket(groupId) {
@@ -252,7 +252,7 @@ class LineAPI {
   }
   
   async _acceptGroupInvitationByTicket(gid,ticketID){
-    this._refrehGroup();
+    this._refreshGroup();
     return await this._client.acceptGroupInvitationByTicket(0,gid,ticketID);
   }
 
@@ -300,11 +300,12 @@ class LineAPI {
         };
         return this
           .postContent(config.LINE_POST_CONTENT_URL, data, filepath)
-          .then((res) => (res.error ? console.log('err',res.error) : res));
+          .then((res) => (res.error ? console.log('err',res.error) : console.log('sxxxx',res)));
     });
   }
 
   postContent(url, data = null, filepath = null) {
+    console.log('head',this.config.Headers);
     return new Promise((resolve, reject) => (
       unirest.post(url)
         .headers({
@@ -315,6 +316,7 @@ class LineAPI {
         .field(data)
         .attach('files', filepath)
         .end((res) => {
+          console.log(res.error);
           res.error ? reject(res.error) : resolve(res)
         })
     ));
