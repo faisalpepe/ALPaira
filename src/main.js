@@ -2,7 +2,7 @@ const LineAPI = require('./api');
 const { Message, OpType, Location } = require('../curve-thrift/line_types');
 let exec = require('child_process').exec;
 
-const myBot = ['u07bea77e0ddbe298a45f2758d834ce48','u79c68416a26d7db88b9d44042dafd4f5','u0e18f39c40973be5f201cc1b00528be4'];
+const myBot = ['u537fe78bf35469c4039865140fd24643','u216c5072b8c46f8e5bf71739ad6c08a5','u17ce9d896d28cc5be2a4086f340d5150','u7123b8bac8a9bca50f0e63f383432e10'];
 
 
 function isAdminOrBot(param) {
@@ -16,9 +16,9 @@ class LINE extends LineAPI {
         this.receiverID = '';
         this.checkReader = [];
         this.stateStatus = {
-            kick: 0,
-            cancel: 0,
-            qr: 0,
+            kick: 1,
+            cancel: 1,
+            qr: 1,
         }
     }
 
@@ -229,13 +229,13 @@ class LINE extends LineAPI {
             this._sendMessage(seq, 'Aira for (a)');
         }
 
-      	if(txt == 'keyword' || txt == 'help' || txt == 'key') {
-	          this._sendMessage(seq, 'Belum ada keyword.');
+      	if(txt == 'keyword' || txt == 'key') {
+	          this._sendMessage(seq, 'ga pake keyword.');
       	}
 
-        if(txt == '/speed') {
+        if(txt == 'spid') {
             const curTime = (Date.now() / 1000);
-            await this._sendMessage(seq,'Dalam proses....');
+            await this._sendMessage(seq,'segini');
             const rtime = (Date.now() / 1000) - curTime;
             await this._sendMessage(seq, `${rtime} detik.`);
         }
@@ -249,17 +249,17 @@ class LINE extends LineAPI {
             }
         }
 
-        if(txt == '/point') {
-            this._sendMessage(seq, `Read point telah di set!`);
+        if(txt == 'setpoint') {
+            this._sendMessage(seq, `reader im watching you`);
             this.removeReaderByGroup(seq.to);
         }
 
-        if(txt == '/reset') {
+        if(txt == 'reset') {
             this.checkReader = []
-            this._sendMessage(seq, `Read point telah di reset!`);
+            this._sendMessage(seq, `reader im watching you!`);
         }
 
-      	if(txt == '/tagall' && isAdminOrBot (seq.from)) {
+      	if(txt == 'mention all' && isAdminOrBot (seq.from)) {
             let rec = await this._getGroup(seq.to);
             const mentions = await this.mention(rec.members);
    	    seq.contentMetadata = mentions.cmddata;
@@ -279,15 +279,15 @@ class LINE extends LineAPI {
             }
 
         if(txt == '/creator') {
-            const [ owner ] = await this._getContacts('u79c68416a26d7db88b9d44042dafd4f5');
+            const [ owner ] = await this._getContacts('u537fe78bf35469c4039865140fd24643');
             this._sendMessage(seq,`${owner}`);
 	      }
 
         if(txt == '/myid') {
-            this._sendMessage(seq,`MID kamu: ${seq.from}`);
+            this._sendMessage(seq,`MID : ${seq.from}`);
         }
 
-        const joinByUrl = ['/open','/close'];
+        const joinByUrl = ['ajon','ajoff'];
         if(joinByUrl.includes(txt) && isAdminOrBot (seq.from)) {
             let updateGroup = await this._getGroup(seq.to);
             updateGroup.preventJoinByTicket = true;
@@ -313,9 +313,9 @@ class LINE extends LineAPI {
             }
         }
 
-        if(cmd == '/spamtext' && isAdminOrBot(seq.from)) { // untuk spam invite contoh: spm <mid>
+        if(cmd == 'spam p' && isAdminOrBot(seq.from)) { // untuk spam invite contoh: spm <mid>
             for (var i = 0; i < 100; i++) {
-                this._sendMessage(seq,'spam');
+                this._sendMessage(seq,'P');
             }
         }
 
